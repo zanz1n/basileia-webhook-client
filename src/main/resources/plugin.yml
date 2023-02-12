@@ -1,0 +1,7 @@
+name: WebhookClient
+version: '${project.version}'
+main: xyz.basileiamc.plugins.webhookclient.WebhookClient
+api-version: 1.15
+authors: [ zanz1n ]
+description: Webhook client for basileia store
+website: www.basileiamc.xyz
