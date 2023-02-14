@@ -1,0 +1,12 @@
+authorization:
+  webhookSecret: ""
+  # Não mexa nisso, a não ser que você saiba oque está fazendo
+  hash: "SHA-256"
+
+webhook:
+  # O tempo em ticks para puxar informações da loja
+  fetchDelay: 2000
+  # O tempo em ticks para enviar informações para a loja
+  postDelay: 2000
+  # Url da loja
+  uri: "https://server.com"
