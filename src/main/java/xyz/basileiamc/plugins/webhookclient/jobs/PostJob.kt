@@ -26,10 +26,10 @@ class PostJob : BukkitRunnable() {
                 .followRedirects(HttpClient.Redirect.NORMAL)
                 .build())
 
-//        try {
-//            val response = executor.executeLinkedAccountsPost()
-//            logResponse(response)
-//        } catch (err: Exception) { errorResponse(err) }
+        try {
+            val response = executor.executeLinkedAccountsPost()
+            logResponse(response)
+        } catch (err: Exception) { errorResponse(err) }
 
         try {
             val response = executor.executeBansPost()
