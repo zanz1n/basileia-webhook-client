@@ -8,9 +8,8 @@ import java.io.File
 import java.io.FileReader
 
 fun readUserCache(): List<MinecraftCachedUser> {
-    var userCacheString = ""
     val br = BufferedReader(FileReader(File("usercache.json")))
-    userCacheString = br.readLine()
+    val userCacheString = br.readLine()
     br.close()
     return Json.decodeFromString(userCacheString)
 }
