@@ -1,9 +1,11 @@
 package xyz.basileiamc.plugins.webhookclient.utils
 
+import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import xyz.basileiamc.plugins.webhookclient.serializable.BannedUsersPayload
 import xyz.basileiamc.plugins.webhookclient.serializable.LinkedAccountsPayload
+import xyz.basileiamc.plugins.webhookclient.serializable.UnbansPayload
 import xyz.basileiamc.plugins.webhookclient.utils.bukkit.PluginConfig
 import xyz.basileiamc.plugins.webhookclient.utils.bukkit.readBannedUsers
 import xyz.basileiamc.plugins.webhookclient.utils.crypto.createSignature
@@ -47,4 +49,21 @@ class RequestExecutor(private val httpClient: HttpClient) {
 
         return this.httpClient.send(request, HttpResponse.BodyHandlers.ofString())
     }
+
+    fun executeAndParseUnbansGet(): UnbansPayload {
+        val response = executeUnbansGet()
+        return Json.decodeFromString(response.body())
+    }
+
+    fun executeUnbansGet(): HttpResponse<String> {
+        val signature = createSignature()
+
+        val request = requestBuilder("/unbans")
+            .GET()
+            .header("x-store-sig", signature)
+            .build()
+
+        return this.httpClient.send(request, HttpResponse.BodyHandlers.ofString())
+    }
+
 }
