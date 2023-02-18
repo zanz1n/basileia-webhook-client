@@ -15,8 +15,10 @@ class PostJob : BukkitRunnable() {
                 "${response.statusCode()}, BODY: ${response.body().ifEmpty { "EMPTY" }}")
     }
 
-    private fun errorResponse(err: Exception) {
-        Bukkit.getLogger().warning("Exception caught when executing POST job: ${err.message}")
+    companion object {
+        public fun errorResponse(err: Exception) {
+            Bukkit.getLogger().warning("Exception caught when executing POST job: ${err.message}")
+        }
     }
 
     override fun run() {
