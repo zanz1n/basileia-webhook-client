@@ -14,7 +14,6 @@ class WebhookClient : JavaPlugin() {
         this.saveDefaultConfig()
 
         PluginConfig.update(this.config)
-        logger.info(Json.encodeToString(readBannedUsers()))
 
         PostJob().runTaskTimerAsynchronously(this, 60, PluginConfig.postDelay)
         GetJob().runTaskTimerAsynchronously(this, 60, PluginConfig.getDelay)
