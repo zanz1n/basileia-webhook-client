@@ -7,7 +7,6 @@ import java.security.MessageDigest
 
 fun createSignature(body: String): String {
     val messageDigest = MessageDigest.getInstance("SHA-256")
-    Bukkit.getLogger().info(PluginConfig.secret.toByteArray().toString())
     messageDigest.update(PluginConfig.secret.toByteArray())
     messageDigest.update(body.toByteArray())
     return DatatypeConverter.printHexBinary(messageDigest.digest()).lowercase()

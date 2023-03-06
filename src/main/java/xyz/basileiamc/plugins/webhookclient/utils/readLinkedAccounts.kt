@@ -25,12 +25,14 @@ fun readLinkedAccounts(): List<LinkedMinecraftUser> {
     br.close()
     val linkedAccounts = mutableListOf<LinkedMinecraftUser>()
 
+    var unresolved = 0
+
     element.keys.forEach { dcId ->
         run {
             val playerUniqueID = element.get(dcId)!!.jsonPrimitive.content
             val playerName = userCache.find { el -> el.uuid == playerUniqueID }?.name
             if (playerName == null) {
-                logger.warning("Linked account $playerUniqueID cannot be resolved")
+                unresolved++
                 return@run
             }
             linkedAccounts.add(
@@ -43,6 +45,8 @@ fun readLinkedAccounts(): List<LinkedMinecraftUser> {
             )
         }
     }
+
+    logger.warning("$unresolved linked accounts cannot be resolved")
 
     return linkedAccounts
 }
