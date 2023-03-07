@@ -5,9 +5,14 @@ import org.bukkit.Bukkit
 import org.bukkit.scheduler.BukkitRunnable
 import xyz.basileiamc.plugins.webhookclient.utils.RequestExecutor
 import java.net.http.HttpClient
+import java.net.http.HttpResponse
 import java.time.Duration
 
 class GetJob : BukkitRunnable() {
+    private fun errorResponse(err: java.lang.Exception) {
+        Bukkit.getLogger().warning("Get job failed: ${err.message}")
+    }
+
     override fun run() {
         val executor = RequestExecutor(
             HttpClient.newBuilder()
@@ -17,12 +22,11 @@ class GetJob : BukkitRunnable() {
 
         try {
             val response = executor.executeAndParseUnbansGet()
-            Bukkit.getLogger().info(response.toString())
             response.data.forEach { element ->
                 run {
                     Bukkit.getBanList(BanList.Type.NAME).pardon(element)
                 }
             }
-        } catch (err: Exception) { PostJob.errorResponse(err) }
+        } catch (err: Exception) { errorResponse(err) }
     }
 }

@@ -3,6 +3,7 @@ package xyz.basileiamc.plugins.webhookclient.utils
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import org.bukkit.Bukkit
 import xyz.basileiamc.plugins.webhookclient.serializable.BannedUsersPayload
 import xyz.basileiamc.plugins.webhookclient.serializable.LinkedAccountsPayload
 import xyz.basileiamc.plugins.webhookclient.serializable.UnbansPayload
@@ -52,6 +53,7 @@ class RequestExecutor(private val httpClient: HttpClient) {
 
     fun executeAndParseUnbansGet(): UnbansPayload {
         val response = executeUnbansGet()
+        Bukkit.getLogger().info("Executed get job ${response.uri()} - STATUS: ${response.statusCode()}")
         return Json.decodeFromString(response.body())
     }
 

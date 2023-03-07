@@ -1,6 +1,5 @@
 package xyz.basileiamc.plugins.webhookclient.jobs
 
-import org.bukkit.BanList
 import org.bukkit.Bukkit
 import org.bukkit.scheduler.BukkitRunnable
 import xyz.basileiamc.plugins.webhookclient.utils.RequestExecutor
@@ -11,14 +10,11 @@ import java.time.Duration
 
 class PostJob : BukkitRunnable() {
     private fun logResponse(response: HttpResponse<String>) {
-        Bukkit.getLogger().info("Executed post job ${response.uri()} - STATUS: " +
-                "${response.statusCode()}, BODY: ${response.body().ifEmpty { "EMPTY" }}")
+        Bukkit.getLogger().info("Executed post job ${response.uri()} - STATUS: ${response.statusCode()}")
     }
 
-    companion object {
-        public fun errorResponse(err: Exception) {
-            Bukkit.getLogger().warning("Exception caught when executing POST job: ${err.message}")
-        }
+    private fun errorResponse(err: Exception) {
+        Bukkit.getLogger().warning("Post job failed: ${err.message}")
     }
 
     override fun run() {
